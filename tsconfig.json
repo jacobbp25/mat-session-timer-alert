@@ -16,6 +16,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "session-timer-alert": [
+        "dist/session-timer-alert"
+      ],
+      "session-timer-alert/*": [
+        "dist/session-timer-alert/*"
+      ]
+    }
   }
 }
