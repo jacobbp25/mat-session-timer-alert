@@ -2,12 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'mat-session-timer-alert',
-  template: `
-    <p>
-      session-timer-alert works!
-    </p>
-  `,
-  styles: []
+  templateUrl: './session-timer-alert.component.html',
+  styleUrls: ['./session-timer-alert.component.css']
 })
 export class SessionTimerAlertComponent implements OnInit {
 

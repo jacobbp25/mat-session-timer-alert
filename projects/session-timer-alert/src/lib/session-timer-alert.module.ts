@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { SessionTimerAlertComponent } from './session-timer-alert.component';
+import { SessionTimerAlertComponent } from './components/session-timer-alert/session-timer-alert.component';
 
 @NgModule({
   declarations: [SessionTimerAlertComponent],
-  imports: [
-  ],
+  imports: [],
   exports: [SessionTimerAlertComponent]
 })
-export class SessionTimerAlertModule { }
+export class SessionTimerAlertModule {}
