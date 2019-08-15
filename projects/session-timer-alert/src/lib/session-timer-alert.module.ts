@@ -1,8 +1,9 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
 // import { HTTP_INTERCEPTORS } from '@angular/common/http';
 //mat select module import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -15,14 +16,15 @@ import { SessionTimerAlertComponent, DialogOverviewExampleDialog } from './compo
 
 @NgModule({
   declarations: [SessionTimerAlertComponent, DialogOverviewExampleDialog],
-  imports: [CommonModule, MatInputModule, FormsModule],
+  imports: [CommonModule, MatInputModule, FormsModule, ReactiveFormsModule, BrowserModule, MatDialogModule],
   providers: [
     // SessionTimerService,
     //{ provide: HTTP_INTERCEPTORS,
     // useClass: SessionTimerHttpInterceptor, multi: true },
     //SessionInteruptService
   ],
-  exports: [SessionTimerAlertComponent, DialogOverviewExampleDialog, MatInputModule]
+  exports: [SessionTimerAlertComponent, DialogOverviewExampleDialog, MatInputModule],
+  entryComponents: [DialogOverviewExampleDialog]
 })
 export class SessionTimerAlertModule {
   // static forRoot(
