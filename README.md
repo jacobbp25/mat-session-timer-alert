@@ -1,27 +1,90 @@
-# MatSessionExpirationAlertDemo
+# Session Expiration Alert
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.2.
+<!-- [![Build Status](https://img.shields.io/travis/changhuixu/session-expiration-alert/master.svg?label=Travis%20CI&style=flat-square)](https://travis-ci.org/changhuixu/session-expiration-alert)
 
-## Development server
+[![npm](https://img.shields.io/npm/v/session-expiration-alert.svg?style=flat-square)](https://www.npmjs.com/package/session-expiration-alert)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+[![npm License](https://img.shields.io/npm/l/session-expiration-alert.svg?style=flat-square)](https://github.com/changhuixu/session-expiration-alert/blob/master/LICENSE) -->
 
-## Code scaffolding
+Ng-Material Implementation of https://github.com/changhuixu/session-expiration-alert
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+An Angular module to time session expiration. When user session idle time reaches a threshold, then pop up a modal dialog to let user choose to continue session or log out the system. When user session is expired, timer will stop and user will be logged out. A http interceptor is registered, so that session timer will restart at every http request.
 
-## Build
+Dependencies: Angular 8+, Ng-Material
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+<!-- ## [Demo](https://session-expiration-alert.netlify.com/) -->
 
-## Running unit tests
+## Usage
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+In `app.module.ts`
 
-## Running end-to-end tests
+```typescript
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    SessionExpirationAlertModule.forRoot()
+    // *** your other import modules
+  ],
+  providers: [
+    {
+      provide: SessionInteruptService,
+      useClass: AppSessionInteruptService
+    }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+In `app.component.html`
 
-## Further help
+```html
+<mat-session-timer-alert></mat-session-timer-alert>
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+In `app-session-interupt.service.ts`
+
+```typescript
+@Injectable()
+export class AppSessionInteruptService extends SessionInteruptService {
+  constructor(private readonly httpClient: HttpClient) {
+    super();
+  }
+  continueSession() {
+    console.log(`I issue an API request to server.`);
+  }
+  stopSession() {
+    console.log(`I logout.`);
+  }
+}
+```
+
+Then the `SessionTimerService` will start to count down at each second.
+
+- To provide actions in the alert modal dialog, you want to provide a `AppSessionInteruptService` class, which will be able to continue session via refreshing cookie, or stop session via logging out.
+
+- To start/stop/reset timer, inject `SessionTimerService` into your component or service, then call `startTimer()`, `stopTimer()`, `resetTimer()` as needed.
+
+- To get the remain time (in seconds), you can subscribe to `remainSeconds$` in `SessionTimerService`.
+
+## Configuration
+
+```typescript
+ imports: [
+   // ***
+    SessionTimerAlertModule.forRoot({totalMinutes: 0.5}),
+   //***
+  ],
+```
+
+The `SessionTimerAlertModule` accepts a configuration with interface of `SessionExpirationConfig`, which is an optional input and has a default value of total minutes = 20 min.
+
+```html
+<mat-session-timer-alert [startTimer]="true" [alertAt]="2*60"></mat-session-timer-alert>
+```
+
+[optional] `startTimer` indicates if the app needs to work on session expiration check or not. Default: true.
+
+[optional] `alertAt` indicates when the alert modal dialog should show up. The value means how many seconds left till session becomes expired. Default: 60 (seconds).
