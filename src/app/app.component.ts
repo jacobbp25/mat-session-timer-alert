@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SessionTimerService } from 'session-timer-alert';
+//import { SessionTimerService } from 'projects/session-timer-alert/src/public_api';
 
 @Component({
   selector: 'seademo-root',

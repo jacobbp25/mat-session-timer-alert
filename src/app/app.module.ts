@@ -5,10 +5,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { SessionTimerAlertModule, SessionInteruptService } from '../../dist/session-timer-alert'; //'session-timer-alert';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppSessionInteruptService } from './services/app-session-interupt.service';
+
+import { SessionTimerAlertModule, SessionInteruptService } from 'session-timer-alert';
+//import { SessionTimerAlertModule, SessionInteruptService } from 'projects/session-timer-alert/src/public_api';
 
 @NgModule({
   declarations: [AppComponent],

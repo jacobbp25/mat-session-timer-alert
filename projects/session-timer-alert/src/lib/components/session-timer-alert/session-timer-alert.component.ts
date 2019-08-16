@@ -1,14 +1,9 @@
 import { Component, Inject, ChangeDetectionStrategy, OnInit, Input, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { SessionTimerService } from '../../services/session-timer.service';
 import { Subscription } from 'rxjs';
 import { SessionInteruptService } from '../../services/session-interupt.service';
-
-export interface DialogData {
-  //delete
-  animal: string;
-  name: string;
-}
 
 @Component({
   selector: 'mat-session-timer-alert',
@@ -19,8 +14,6 @@ export interface DialogData {
 export class SessionTimerAlertComponent implements OnInit, OnChanges, OnDestroy {
   @Input() startTimer? = true;
   @Input() alertAt? = 60;
-  animal: string; //delete
-  name: string; //delete
   private sessionTimerSubscription: Subscription;
 
   constructor(private dialog: MatDialog, private sessionTimer: SessionTimerService, private sessionInterupter: SessionInteruptService) {}
@@ -44,7 +37,6 @@ export class SessionTimerAlertComponent implements OnInit, OnChanges, OnDestroy 
     this.sessionTimer.startTimer();
     this.sessionTimerSubscription = this.sessionTimer.remainSeconds$.subscribe(t => {
       if (t === this.alertAt) {
-        //this.modalRef = this.modalService.open(SessionExpirationAlertModalComponent, this.ngbModalOptions);
         this.openDialog();
       }
       if (t === 0) {
@@ -70,13 +62,11 @@ export class SessionTimerAlertComponent implements OnInit, OnChanges, OnDestroy 
 
   openDialog(): void {
     const dialogRef = this.dialog.open(MatSessionTimerAlertDialog, {
-      width: '250px',
-      data: { name: this.name, animal: this.animal }
+      width: '350px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
     });
   }
 }
@@ -86,9 +76,24 @@ export class SessionTimerAlertComponent implements OnInit, OnChanges, OnDestroy 
   templateUrl: 'session-timer-alert-dialog.html'
 })
 export class MatSessionTimerAlertDialog {
-  constructor(public dialogRef: MatDialogRef<MatSessionTimerAlertDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(
+    public dialogRef: MatDialogRef<MatSessionTimerAlertDialog>,
+    private sessionInterupter: SessionInteruptService,
+    public sessionTimer: SessionTimerService
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  continue() {
+    this.sessionInterupter.continueSession();
+    this.sessionTimer.resetTimer();
+    this.dialogRef.close();
+  }
+  logout() {
+    this.sessionTimer.stopTimer();
+    this.dialogRef.close();
+    this.sessionInterupter.stopSession();
   }
 }

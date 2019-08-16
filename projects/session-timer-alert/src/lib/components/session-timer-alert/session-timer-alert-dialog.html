@@ -1,11 +1,12 @@
-<h1 mat-dialog-title>Hi {{ data.name }}</h1>
+<h1 mat-dialog-title>Session is about to expire</h1>
 <div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.animal" />
-  </mat-form-field>
+  <p>Your session will expire in {{ sessionTimer.remainSeconds$ | async }} seconds.</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+  <button mat-stroked-button color="warn" (click)="logout()">
+    Logout
+  </button>
+  <button mat-stroked-button color="primary" (click)="continue()">
+    Continue Session
+  </button>
 </div>

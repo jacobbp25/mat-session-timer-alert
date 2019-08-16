@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -20,7 +21,7 @@ import { SessionExpirationConfig, ConfigToken } from './models/session-expiratio
     { provide: HTTP_INTERCEPTORS, useClass: SessionTimerHttpInterceptor, multi: true },
     SessionInteruptService
   ],
-  exports: [SessionTimerAlertComponent, MatSessionTimerAlertDialog, MatInputModule],
+  exports: [SessionTimerAlertComponent, MatSessionTimerAlertDialog, MatInputModule, MatButtonModule],
   entryComponents: [MatSessionTimerAlertDialog]
 })
 export class SessionTimerAlertModule {
