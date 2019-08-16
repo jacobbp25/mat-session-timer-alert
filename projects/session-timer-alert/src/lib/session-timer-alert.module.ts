@@ -1,10 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
-import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SessionTimerService } from './services/session-timer.service';
@@ -15,13 +12,13 @@ import { SessionExpirationConfig, ConfigToken } from './models/session-expiratio
 
 @NgModule({
   declarations: [SessionTimerAlertComponent, MatSessionTimerAlertDialog],
-  imports: [CommonModule, MatInputModule, FormsModule, ReactiveFormsModule, BrowserModule, MatDialogModule],
+  imports: [CommonModule, MatDialogModule, MatButtonModule],
   providers: [
     SessionTimerService,
     { provide: HTTP_INTERCEPTORS, useClass: SessionTimerHttpInterceptor, multi: true },
     SessionInteruptService
   ],
-  exports: [SessionTimerAlertComponent, MatSessionTimerAlertDialog, MatInputModule, MatButtonModule],
+  exports: [SessionTimerAlertComponent, MatSessionTimerAlertDialog],
   entryComponents: [MatSessionTimerAlertDialog]
 })
 export class SessionTimerAlertModule {

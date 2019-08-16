@@ -1,6 +1,5 @@
-import { Component, Inject, ChangeDetectionStrategy, OnInit, Input, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, Input, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
 import { SessionTimerService } from '../../services/session-timer.service';
 import { Subscription } from 'rxjs';
 import { SessionInteruptService } from '../../services/session-interupt.service';
