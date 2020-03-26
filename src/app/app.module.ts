@@ -8,11 +8,12 @@ import { MatButtonModule } from "@angular/material/button";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppSessionInteruptService } from "./services/app-session-interupt.service";
 
-//import { SessionTimerAlertModule, SessionInteruptService } from 'session-timer-alert';
 import {
   SessionTimerAlertModule,
   SessionInteruptService
-} from "projects/session-timer-alert/src/public_api";
+} from "@uiowa/session-timer-alert";
+
+// import { SessionTimerAlertModule, SessionInteruptService } from "projects/session-timer-alert/src/public_api";
 
 @NgModule({
   declarations: [AppComponent],
