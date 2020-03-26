@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { SessionTimerService } from 'session-timer-alert';
-//import { SessionTimerService } from 'projects/session-timer-alert/src/public_api';
+import { Component } from "@angular/core";
+//import { SessionTimerService } from 'session-timer-alert';
+import { SessionTimerService } from "projects/session-timer-alert/src/public_api";
 
 @Component({
-  selector: 'seademo-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "seademo-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
   alertAt = 15;

@@ -1,15 +1,18 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
 
-import { AppComponent } from './app.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppSessionInteruptService } from './services/app-session-interupt.service';
+import { AppComponent } from "./app.component";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatButtonModule } from "@angular/material/button";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AppSessionInteruptService } from "./services/app-session-interupt.service";
 
-import { SessionTimerAlertModule, SessionInteruptService } from 'session-timer-alert';
-// import { SessionTimerAlertModule, SessionInteruptService } from 'projects/session-timer-alert/src/public_api';
+//import { SessionTimerAlertModule, SessionInteruptService } from 'session-timer-alert';
+import {
+  SessionTimerAlertModule,
+  SessionInteruptService
+} from "projects/session-timer-alert/src/public_api";
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +24,9 @@ import { SessionTimerAlertModule, SessionInteruptService } from 'session-timer-a
     HttpClientModule,
     SessionTimerAlertModule.forRoot({ totalMinutes: 0.5 })
   ],
-  providers: [{ provide: SessionInteruptService, useClass: AppSessionInteruptService }],
+  providers: [
+    { provide: SessionInteruptService, useClass: AppSessionInteruptService }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
